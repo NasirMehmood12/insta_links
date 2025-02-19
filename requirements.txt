@@ -1,4 +1,4 @@
 flask
-playwright.sync_api
+playwright
 gunicorn
 chromedriver-autoinstaller
