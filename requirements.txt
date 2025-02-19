@@ -1,4 +1,4 @@
 flask
-playwright
+selenium
 gunicorn
 chromedriver-autoinstaller
