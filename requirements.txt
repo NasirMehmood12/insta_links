@@ -1,4 +1,3 @@
 flask
-selenium
+psycopg2
 gunicorn
-chromedriver-autoinstaller
