@@ -75,12 +75,18 @@ pages = [
 ]
 
 def get_instagram_links(page_url):
-    # Chrome options for Render deployment
+
     options = Options()
     options.add_argument("--headless=new")
-    options.add_argument("--user-data-dir=/tmp/chrome-user-data")  # Prevent session conflicts
-    options.add_argument("--no-sandbox")  # Required for cloud environments
-    options.add_argument("--disable-dev-shm-usage")  # Helps on low-memory systems
+    options.add_argument("--disable-gpu")
+    options.add_argument("--window-size=375,812")
+    options.add_argument("--disable-blink-features=AutomationControlled")
+    options.add_argument("--no-sandbox")  # Fix for Render
+    options.add_argument("--disable-dev-shm-usage")  # Prevent crashes on Render
+    options.add_argument("--disable-extensions")  # Ensure clean session
+    options.add_argument("--incognito")  # Avoid user data directory issues
+    options.add_argument("user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Mobile Safari/537.36")
+
 
     # Start Selenium WebDriver
     driver = webdriver.Chrome(options=options)
