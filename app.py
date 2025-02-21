@@ -88,17 +88,36 @@ DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://save_links_user:9WO8M1bIX
 USERNAME = "admin"
 PASSWORD = "password"
 
+# def get_links():
+#     """Fetch links from the PostgreSQL database."""
+#     try:
+#         conn = psycopg2.connect(DATABASE_URL)
+#         cursor = conn.cursor()
+#         cursor.execute("SELECT page_name, link FROM instagram_links")
+#         data = cursor.fetchall()
+#         cursor.close()
+#         conn.close()
+#         return data  # Returning list of tuples (page_name, link)
+#     except Exception as e:
+#         return []
+
+
 def get_links():
-    """Fetch links from the PostgreSQL database."""
+    """Fetch links from both Instagram and Facebook tables."""
     try:
         conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
-        cursor.execute("SELECT page_name, link FROM instagram_links UNION ALL SELECT page_name, link FROM facebook_links")
+        cursor.execute("""
+            SELECT page_name, link FROM instagram_links
+            UNION ALL
+            SELECT page_name, link FROM facebook_links
+        """)
         data = cursor.fetchall()
         cursor.close()
         conn.close()
         return data  # Returning list of tuples (page_name, link)
     except Exception as e:
+        print(f"Error fetching links: {e}")
         return []
 
 @app.route("/", methods=["GET", "POST"])
