@@ -31,7 +31,7 @@
  -->
 
 
-<!-- 
+
  <body>
     <h2>Instagram Scraped Links</h2>
     <a href="{{ url_for('logout') }}" style="float: right; color: red;">Logout</a>
@@ -48,37 +48,6 @@
         {% endfor %}
     </table>
 </body>
- -->
 
 
 
- <body>
-    <h2>Scraped Links</h2>
-    <a href="{{ url_for('logout') }}" style="float: right; color: red;">Logout</a>
-    <table border="1">
-        <tr>
-            <th>Page Name</th>
-            <th>Instagram Link</th>
-            <th>Facebook Link</th>
-        </tr>
-        {% for page_name, insta_link, fb_link in links %}
-        <tr>
-            <td>{{ page_name }}</td>
-            <td>
-                {% if insta_link %}
-                    <a href="{{ insta_link }}" target="_blank">{{ insta_link }}</a>
-                {% else %}
-                    N/A
-                {% endif %}
-            </td>
-            <td>
-                {% if fb_link %}
-                    <a href="{{ fb_link }}" target="_blank">{{ fb_link }}</a>
-                {% else %}
-                    N/A
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
