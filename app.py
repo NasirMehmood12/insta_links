@@ -93,7 +93,7 @@ def get_links():
     try:
         conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
-        cursor.execute("SELECT page_name, link FROM instagram_links")
+        cursor.execute("SELECT page_name, link FROM instagram_links UNION ALL SELECT page_name, link FROM facebook_links")
         data = cursor.fetchall()
         cursor.close()
         conn.close()
