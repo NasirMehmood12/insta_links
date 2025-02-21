@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,3 +28,23 @@
     </table>
 </body>
 </html>
+ -->
+
+
+
+ <body>
+    <h2>Instagram Scraped Links</h2>
+    <a href="{{ url_for('logout') }}" style="float: right; color: red;">Logout</a>
+    <table>
+        <tr>
+            <th>Page Name</th>
+            <th>Link</th>
+        </tr>
+        {% for page_name, link in links %}
+        <tr>
+            <td>{{ page_name }}</td>
+            <td><a href="{{ link }}" target="_blank">{{ link }}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
