@@ -85,8 +85,8 @@ app.secret_key = "your_secret_key"  # Required for session management
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://save_links_user:9WO8M1bIXq1nd4SSzW3uyTeaFzjmBC8M@dpg-curg0123esus73dnsv7g-a.oregon-postgres.render.com/save_links")
 
 # Hardcoded username and password
-USERNAME = "admin"
-PASSWORD = "password"
+USERNAME = "IMM"
+PASSWORD = "imm@geotv"
 
 # def get_links():
 #     """Fetch links from the PostgreSQL database."""
