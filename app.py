@@ -102,57 +102,25 @@ PASSWORD = "imm@geotv"
 #         return []
 
 
-# def get_links():
-#     """Fetch links from both Instagram and Facebook tables."""
-#     try:
-#         conn = psycopg2.connect(DATABASE_URL)
-#         cursor = conn.cursor()
-#         cursor.execute("""
-#             SELECT page_name, link FROM instagram_links
-#             UNION ALL
-#             SELECT page_name, link FROM facebook_links
-#         """)
-#         data = cursor.fetchall()
-#         cursor.close()
-#         conn.close()
-#         return data  # Returning list of tuples (page_name, link)
-#     except Exception as e:
-#         print(f"Error fetching links: {e}")
-#         return []
-
-
 def get_links():
-    """Fetch links separately for Instagram and Facebook."""
+    """Fetch links from both Instagram and Facebook tables."""
     try:
         conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
-        
-        cursor.execute("SELECT page_name, link FROM instagram_links")
-        instagram_data = cursor.fetchall()
-
-        cursor.execute("SELECT page_name, link FROM facebook_links")
-        facebook_data = cursor.fetchall()
-
+        cursor.execute("""
+            SELECT page_name, link FROM instagram_links
+            UNION ALL
+            SELECT page_name, link FROM facebook_links
+        """)
+        data = cursor.fetchall()
         cursor.close()
         conn.close()
-
-        # Convert lists to dictionaries for easy lookup
-        instagram_dict = dict(instagram_data)
-        facebook_dict = dict(facebook_data)
-
-        # Merge keys to ensure all page names appear
-        all_pages = set(instagram_dict.keys()).union(set(facebook_dict.keys()))
-
-        # Structure data for template
-        data = [
-            (page, instagram_dict.get(page, ""), facebook_dict.get(page, ""))
-            for page in all_pages
-        ]
-        
-        return data  # List of tuples: (page_name, instagram_link, facebook_link)
+        return data  # Returning list of tuples (page_name, link)
     except Exception as e:
         print(f"Error fetching links: {e}")
         return []
+
+
 
 
 @app.route("/", methods=["GET", "POST"])
