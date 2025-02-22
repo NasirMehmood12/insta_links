@@ -86,7 +86,7 @@ DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://save_links_user:9WO8M1bIX
 
 # Hardcoded username and password
 USERNAME = "IMM"
-PASSWORD = "imm@geo.tv"
+PASSWORD = "imm@geotv"
 
 # def get_links():
 #     """Fetch links from the PostgreSQL database."""
