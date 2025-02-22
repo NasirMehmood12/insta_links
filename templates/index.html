@@ -113,7 +113,7 @@
 
  -->
 
-
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -191,5 +191,90 @@
             </table>
         </div>
     </div>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram & Facebook Links</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid black; padding: 10px; text-align: left; }
+        th { background: lightgray; }
+        select { padding: 5px; margin: 10px; }
+    </style>
+</head>
+<body>
+
+    <h2>Instagram & Facebook Links</h2>
+    <a href="{{ url_for('logout') }}" style="float: right; color: red;">Logout</a>
+
+    <!-- Dropdowns for Filtering -->
+    <label for="instagramFilter">Filter Instagram:</label>
+    <select id="instagramFilter" onchange="filterLinks('instagram')">
+        <option value="all">All</option>
+        {% for page in instagram_pages %}
+        <option value="{{ page }}">{{ page }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="facebookFilter">Filter Facebook:</label>
+    <select id="facebookFilter" onchange="filterLinks('facebook')">
+        <option value="all">All</option>
+        {% for page in facebook_pages %}
+        <option value="{{ page }}">{{ page }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- Instagram Table -->
+    <h3>Instagram Links</h3>
+    <table id="instagramTable">
+        <tr>
+            <th>Page Name</th>
+            <th>Link</th>
+        </tr>
+        {% for page_name, link in instagram_links %}
+        <tr class="instagram-row" data-page="{{ page_name }}">
+            <td>{{ page_name }}</td>
+            <td><a href="{{ link }}" target="_blank">{{ link }}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Facebook Table -->
+    <h3>Facebook Links</h3>
+    <table id="facebookTable">
+        <tr>
+            <th>Page Name</th>
+            <th>Link</th>
+        </tr>
+        {% for page_name, link in facebook_links %}
+        <tr class="facebook-row" data-page="{{ page_name }}">
+            <td>{{ page_name }}</td>
+            <td><a href="{{ link }}" target="_blank">{{ link }}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+        function filterLinks(type) {
+            let selectedPage = document.getElementById(type + "Filter").value;
+            let rows = document.querySelectorAll("." + type + "-row");
+
+            rows.forEach(row => {
+                if (selectedPage === "all" || row.dataset.page === selectedPage) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
+
 </body>
 </html>
