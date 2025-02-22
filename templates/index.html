@@ -281,10 +281,11 @@
                     <th>Link</th>
                     <th>timestamp</th>
                 </tr>
-                {% for page_name, link in instagram_links %}
+                {% for page_name, link, timestamp in instagram_links %}
                 <tr data-page="{{ page_name }}">
                     <td>{{ page_name }}</td>
                     <td><a href="{{ link }}" target="_blank">{{ link }}</a></td>
+                    <td>{{ timestamp }}</td>
                 </tr>
                 {% endfor %}
             </table>
