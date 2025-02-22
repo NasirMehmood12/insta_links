@@ -32,7 +32,7 @@
 
 
 
- <body>
+<!--  <body>
     <h2>Instagram Scraped Links</h2>
     <a href="{{ url_for('logout') }}" style="float: right; color: red;">Logout</a>
     <table>
@@ -48,6 +48,66 @@
         {% endfor %}
     </table>
 </body>
+ -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Scraped Links</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='image.png') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        a {
+            color: red;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid white;
+        }
+        th {
+            background: rgba(255, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <h2>Instagram Scraped Links</h2>
+    <a href="{{ url_for('logout') }}" style="float: right;">Logout</a>
+    <table>
+        <tr>
+            <th>Page Name</th>
+            <th>Link</th>
+        </tr>
+        {% for page_name, link in links %}
+        <tr>
+            <td>{{ page_name }}</td>
+            <td><a href="{{ link }}" target="_blank" style="color: cyan;">{{ link }}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
 
 
 
