@@ -102,24 +102,48 @@ PASSWORD = "imm@geotv"
 #         return []
 
 
+# def get_links():
+#     """Fetch links from both Instagram and Facebook tables."""
+#     try:
+#         conn = psycopg2.connect(DATABASE_URL)
+#         cursor = conn.cursor()
+#         cursor.execute("""
+#             SELECT page_name, link FROM instagram_links
+#             UNION ALL
+#             SELECT page_name, link FROM facebook_links
+#         """)
+#         data = cursor.fetchall()
+#         cursor.close()
+#         conn.close()
+#         return data  # Returning list of tuples (page_name, link)
+#     except Exception as e:
+#         print(f"Error fetching links: {e}")
+#         return []
+
+
+
 def get_links():
-    """Fetch links from both Instagram and Facebook tables."""
+    """Fetch links separately from Instagram and Facebook tables."""
     try:
         conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
-        cursor.execute("""
-            SELECT page_name, link FROM instagram_links
-            UNION ALL
-            SELECT page_name, link FROM facebook_links
-        """)
-        data = cursor.fetchall()
+
+        # Fetch Instagram links
+        cursor.execute("SELECT page_name, link FROM instagram_links")
+        instagram_links = cursor.fetchall()
+
+        # Fetch Facebook links
+        cursor.execute("SELECT page_name, link FROM facebook_links")
+        facebook_links = cursor.fetchall()
+
         cursor.close()
         conn.close()
-        return data  # Returning list of tuples (page_name, link)
+
+        return instagram_links, facebook_links  # Return as two separate lists
+
     except Exception as e:
         print(f"Error fetching links: {e}")
-        return []
-
+        return [], []  # Return empty lists in case of an error
 
 
 
@@ -144,8 +168,10 @@ def index():
     if "user" not in session:
         return redirect(url_for("login"))  # Redirect to login if not logged in
     
-    links = get_links()
-    return render_template("index.html", links=links)
+    # links = get_links()
+    # return render_template("index.html", links=links)
+    instagram_links, facebook_links = get_links()
+    return render_template("index.html", instagram_links=instagram_links, facebook_links=facebook_links)
 
 @app.route("/logout")
 def logout():
