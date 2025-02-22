@@ -200,8 +200,7 @@
 
 
 
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -242,29 +241,30 @@
         }
         select {
             padding: 10px;
+            margin: 0 10px;
             font-size: 16px;
-            margin: 5px;
         }
     </style>
 </head>
 <body>
     <h2>Instagram & Facebook Scraped Links</h2>
     <a href="{{ url_for('logout') }}" style="float: right; color: red;">Logout</a>
-    
+
+    <!-- Dropdown Filters -->
     <div class="filters">
-        <label for="instagram-filter">Filter Instagram:</label>
-        <select id="instagram-filter">
-            <option value="all">All</option>
-            {% for page_name, _ in instagram_links %}
-                <option value="{{ page_name }}">{{ page_name }}</option>
+        <label for="instagramFilter">Instagram:</label>
+        <select id="instagramFilter">
+            <option value="">All</option>
+            {% for page_name, link in instagram_links %}
+            <option value="{{ page_name }}">{{ page_name }}</option>
             {% endfor %}
         </select>
-        
-        <label for="facebook-filter">Filter Facebook:</label>
-        <select id="facebook-filter">
-            <option value="all">All</option>
-            {% for page_name, _ in facebook_links %}
-                <option value="{{ page_name }}">{{ page_name }}</option>
+
+        <label for="facebookFilter">Facebook:</label>
+        <select id="facebookFilter">
+            <option value="">All</option>
+            {% for page_name, link in facebook_links %}
+            <option value="{{ page_name }}">{{ page_name }}</option>
             {% endfor %}
         </select>
     </div>
@@ -273,13 +273,13 @@
         <!-- Instagram Links Table -->
         <div>
             <h3>Instagram Links</h3>
-            <table>
+            <table id="instagramTable">
                 <tr>
                     <th>Page Name</th>
                     <th>Link</th>
                 </tr>
                 {% for page_name, link in instagram_links %}
-                <tr>
+                <tr data-page="{{ page_name }}">
                     <td>{{ page_name }}</td>
                     <td><a href="{{ link }}" target="_blank">{{ link }}</a></td>
                 </tr>
@@ -290,13 +290,13 @@
         <!-- Facebook Links Table -->
         <div>
             <h3>Facebook Links</h3>
-            <table>
+            <table id="facebookTable">
                 <tr>
                     <th>Page Name</th>
                     <th>Link</th>
                 </tr>
                 {% for page_name, link in facebook_links %}
-                <tr>
+                <tr data-page="{{ page_name }}">
                     <td>{{ page_name }}</td>
                     <td><a href="{{ link }}" target="_blank">{{ link }}</a></td>
                 </tr>
@@ -304,5 +304,26 @@
             </table>
         </div>
     </div>
+
+    <script>
+        document.getElementById("instagramFilter").addEventListener("change", function() {
+            let filterValue = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#instagramTable tr[data-page]");
+
+            rows.forEach(row => {
+                row.style.display = filterValue === "" || row.getAttribute("data-page").toLowerCase() === filterValue ? "" : "none";
+            });
+        });
+
+        document.getElementById("facebookFilter").addEventListener("change", function() {
+            let filterValue = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#facebookTable tr[data-page]");
+
+            rows.forEach(row => {
+                row.style.display = filterValue === "" || row.getAttribute("data-page").toLowerCase() === filterValue ? "" : "none";
+            });
+        });
+    </script>
+
 </body>
 </html>
