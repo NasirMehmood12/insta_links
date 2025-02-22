@@ -50,7 +50,7 @@
 </body>
  -->
 
-
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,3 +111,53 @@
 
 
 
+ -->
+
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram & Facebook Links</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        table { width: 80%; margin: 20px auto; border-collapse: collapse; }
+        th, td { padding: 10px; border: 1px solid black; }
+        th { background-color: red; color: white; }
+    </style>
+</head>
+<body>
+    <h2>Instagram & Facebook Scraped Links</h2>
+    <a href="{{ url_for('logout') }}" style="float: right; color: red;">Logout</a>
+
+    <h3>Instagram Links</h3>
+    <table>
+        <tr>
+            <th>Page Name</th>
+            <th>Link</th>
+        </tr>
+        {% for page_name, link in instagram_links %}
+        <tr>
+            <td>{{ page_name }}</td>
+            <td><a href="{{ link }}" target="_blank">{{ link }}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Facebook Links</h3>
+    <table>
+        <tr>
+            <th>Page Name</th>
+            <th>Link</th>
+        </tr>
+        {% for page_name, link in facebook_links %}
+        <tr>
+            <td>{{ page_name }}</td>
+            <td><a href="{{ link }}" target="_blank">{{ link }}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
