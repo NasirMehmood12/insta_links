@@ -190,13 +190,10 @@ def get_instagram_links():
     try:
         conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
-        # cursor.execute("SELECT page_name, link FROM instagram_links")
-        cursor.execute('SELECT page_name, link, TO_CHAR("timestamp", \'YYYY-MM-DD HH24:MI:SS\') FROM instagram_links')
-     
+        cursor.execute("SELECT page_name, link FROM instagram_links")
+        
         cursor.close()
-        conn.close()
-        # return data
-        return render_template("index.html", instagram_links=instagram_links)
+        conn.close()       
     except Exception as e:
         print(f"Error fetching Instagram links: {e}")
         return []
@@ -221,9 +218,7 @@ def index():
     if "user" not in session:
         return redirect(url_for("login"))  
 
-    # instagram_links = get_instagram_links()
-    cursor.execute('SELECT page_name, link, TO_CHAR("timestamp", \'YYYY-MM-DD HH24:MI:SS\') FROM instagram_links')
-    instagram_links = cursor.fetchall()
+    instagram_links = get_instagram_links()    
     facebook_links = get_facebook_links()
 
     instagram_pages = list(set([link[0] for link in instagram_links]))  
