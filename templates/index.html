@@ -284,13 +284,7 @@
                 <tr data-page="{{ page_name }}">
                     <td>{{ page_name }}</td>
                     <td><a href="{{ link }}" target="_blank">{{ link }}</a></td>
-                    <td>
-                        {% if timestamp %}
-                            {{ timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
-                        {% else %}
-                            No timestamp
-                        {% endif %}
-                    </td>
+                    <td>{{ timestamp }}</td>
                    
                 </tr>
                 {% endfor %}
