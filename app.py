@@ -220,6 +220,7 @@ def index():
         return redirect(url_for("login"))  
 
     instagram_links = get_instagram_links()
+    return render_template("index.html", instagram_links=instagram_links)
     facebook_links = get_facebook_links()
 
     instagram_pages = list(set([link[0] for link in instagram_links]))  
@@ -258,5 +259,5 @@ def logout():
     return redirect(url_for("login"))
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+    app.run(host="0.0.0.0", port=10000, debug=True)
 
